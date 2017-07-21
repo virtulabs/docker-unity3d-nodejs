@@ -1,7 +1,7 @@
 FROM ubuntu:14.04.5
 
 
-ENV NODE_VERSION 6.9.4
+ENV NODE_VERSION 6.11.1
 ENV NPM_VERSION 3.10.10
 
 
@@ -11,22 +11,11 @@ RUN apt-get -qq update && apt-get -qq install -y \
 
 
 # Setup Node.js (Setup NodeSource Official PPA)
-# https://github.com/nodesource/docker-node/blob/master/ubuntu/trusty/Dockerfile
-RUN buildDeps='curl lsb-release python-all git apt-transport-https build-essential' && \
-    apt-get update && \
-    apt-get install -y --force-yes $buildDeps && \
-    curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+RUN sudo npm install -g -y forever
 
-RUN curl -L http://git.io/n-install | N_PREFIX=/usr/local/n bash -s -- -y $NODE_VERSION
-ENV PATH "$PATH:/usr/local/n/bin"
-
-RUN npm_install=$NPM_VERSION curl -L https://www.npmjs.com/install.sh | sh
-
-RUN npm install -g forever \
-    && ln -s /usr/bin/nodejs /usr/bin/node \
-    && npm config set color false
+RUN npm config set color false
 
 
 RUN mkdir -p /root/.cache/unity3d && mkdir -p /root/.local/share/unity3d
