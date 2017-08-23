@@ -1,4 +1,4 @@
-FROM ubuntu:14.04.5
+FROM mrlyc/chrome-vnc
 
 
 ENV NODE_VERSION 6.11.1
