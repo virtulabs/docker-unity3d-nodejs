@@ -1,4 +1,4 @@
-FROM mrlyc/chrome-vnc
+FROM FROM ubuntu:14.04.5
 
 
 ENV NODE_VERSION 6.11.1
@@ -11,7 +11,7 @@ RUN apt-get -qq update && apt-get -qq install -y \
 
 
 # Setup Node.js (Setup NodeSource Official PPA)
-RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN sudo apt-get install -y nodejs
 RUN sudo npm install -g -y forever
 
